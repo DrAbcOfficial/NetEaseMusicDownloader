@@ -453,7 +453,7 @@ def add_poster(poster, title, artists, album, year, track, music, br):
     pMp3.tag.album = album
     pMp3.tag.recording_date = str(year)
     pMp3.tag.comment = str(track)
-    pMp3.tag.bpm = str(br)
+    pMp3.tag.bpm = br
     pImgType = filetype.guess(poster)
     pMp3.tag.images.set(ImageFrame.FRONT_COVER, open(poster, 'rb').read(), pImgType.mime)
     pMp3.tag.save(version=eyed3.id3.ID3_DEFAULT_VERSION, encoding='utf-8')

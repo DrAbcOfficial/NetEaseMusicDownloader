@@ -122,9 +122,11 @@
 
 [Python3.0+](https://www.python.org/downloads/mac-osx/) (with [*requests*](https://github.com/requests/requests) installed.)
 
-[lame](http://lame.sourceforge.net) (use this lib to add Cover for audio.) [Here](https://github.com/Kito0615/NetEaseMusicDownloader/blob/master/Install_lame.md) is some instructions.
+~~[lame](http://lame.sourceforge.net) (use this lib to add Cover for audio.) [Here](https://github.com/Kito0615/NetEaseMusicDownloader/blob/master/Install_lame.md) is some instructions.~~
 
-[Homebrew](https://brew.sh/)
+~~[Homebrew](https://brew.sh/)~~
+
+[eyeD3](https://pypi.org/project/eyeD3/)
 
 [License](https://github.com/Kito0615/NetEaseMusicDownloader/blob/master/LICENSE)
 

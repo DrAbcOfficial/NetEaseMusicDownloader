@@ -120,9 +120,11 @@
 
 [Python3.0+](https://www.python.org/downloads/mac-osx/) (需要安装[*requests*](https://github.com/requests/requests)库)
 
-[lame](http://lame.sourceforge.net) (用于给音乐添加封面) [这里](https://github.com/Kito0615/NetEaseMusicDownloader/blob/master/Install_lame.md)有一点安装指南。
+~~[lame](http://lame.sourceforge.net) (用于给音乐添加封面) [这里](https://github.com/Kito0615/NetEaseMusicDownloader/blob/master/Install_lame.md)有一点安装指南。~~
 
-[Homebrew](https://brew.sh/)
+~~[Homebrew](https://brew.sh/)~~
+
+[eyeD3](https://pypi.org/project/eyeD3/)
 
 [License](https://github.com/Kito0615/NetEaseMusicDownloader/blob/master/LICENSE)
 

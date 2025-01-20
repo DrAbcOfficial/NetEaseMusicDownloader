@@ -22,8 +22,12 @@ import sys
 import time
 import getopt
 import locale
+import filetype
 from http import cookiejar as cj
 import tempfile
+
+import eyed3
+from eyed3.id3.frames import ImageFrame
 
 # from requests import cookies
 from config import http_error
@@ -33,7 +37,7 @@ from Crypto.Cipher import AES
 import base64
 
 __DATE__ = '2024-12-23'
-__VERSION__ = 'V 0.7.4'
+__VERSION__ = 'V 0.7.4-nomac'
 
 URL_TYPE_KEY = "url_type"
 URL_TYPE_SINGLE = "single"
@@ -434,33 +438,28 @@ def download_file(file_url, cookie_file='', folder='',
 
     return file
 
-
-def install_lame():
-    ret = subprocess.check_output(['brew', 'install', 'lame'])
-    print(ret)
-
-
+# poster : img path : char[]
+# title : music name : char[]
+# artist : music author : char[]
+# album : album name : char[]
+# year : album year : int
+# track : tracks, why u use it as comment? : int
+# music : mp3 path : char[]
+# br : kbps : int
 def add_poster(poster, title, artists, album, year, track, music, br):
-    ret = os.system('lame --version')
-    if ret != 0:
-        install_lame()
-    try:
-        params = ['lame', '--tt', title, '--ta', artists,
-                  '--tl', album, '--ty', str(year), '--tc', str(track),
-                  '--tg', '13', '--ti', poster, '-b', str(br), music]
-        out_bytes = subprocess.check_output(params)
-        print(out_bytes.decode('utf-8'))
-        if remove_file(poster):
-            print(_('The coverart was applied successfully.'))
-        if remove_file(music):
-            print(_('Song file was downloaded successfully.'))
+    pMp3 = eyed3.load(path=music)
+    pMp3.tag.artist = artists
+    pMp3.tag.title = title
+    pMp3.tag.album = album
+    pMp3.tag.recording_date = str(year)
+    pMp3.tag.comment = str(track)
+    pMp3.tag.bpm = str(br)
+    pImgType = filetype.guess(poster)
+    pMp3.tag.images.set(ImageFrame.FRONT_COVER, open(poster, 'rb').read(), pImgType.mime)
+    pMp3.tag.save(version=eyed3.id3.ID3_DEFAULT_VERSION, encoding='utf-8')
 
-        old_file = music + '.' + music.split('.')[-1]
-        if os.path.exists(old_file):
-            os.rename(old_file, music)
-
-    except Exception as e:
-        print(e)
+    if remove_file(poster):
+        print(_('The coverart was applied successfully.'))
 
 
 def remove_file(file):
